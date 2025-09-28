@@ -10,6 +10,7 @@ export interface IUser extends Document{
     isAdmin: boolean;
     localJWT:String|null;
     coockieJWT:string|null;
+    dataLastLog:Date|null;
 }
 
 // Definizione dello schema UserSchema
@@ -21,6 +22,7 @@ const UserSchema = new Schema<IUser>({
     isAdmin: { type: Boolean, default: false },
     localJWT: { type: String},
     coockieJWT: { type: String},
+    dataLastLog: { type: Date },
     
 }, { collection: "utenti",versionKey: false, });
 //Associazione dello schema alla collection UserModel su mongo Atlas
