@@ -1,5 +1,5 @@
-import express, { Router,Request,Response } from "express";
-import { userRouter } from "./core/utente/index";
+import express, { Router, Request, Response } from "express";
+import { userRouter } from "./core/admin/index";
 import { startServer } from "./config/server";
 
 const app = express();
