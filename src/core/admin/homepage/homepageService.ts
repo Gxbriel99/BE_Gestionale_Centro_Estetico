@@ -1,5 +1,5 @@
 
-import { IUser } from "../../schema/staffSchema";
+import { emailSchema, IUser } from "../../schema/staffSchema";
 import { staffModel, staffZod } from "../../schema/staffSchema";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
@@ -10,15 +10,19 @@ import { z, ZodError } from "zod";
 
 export async function loginService(user: IUser) {
 
-    // 🔑 Chiave segreta (VA SEMPRE PRESA DA FILE .ENV MA QUI SERVE PER I TEST)
-    const secret = 'S0d!F@rt3ECompl3x@2025';
+    // 🔑 Chiave segreta 
+    const key = process.env.Secret_Key;
 
     // Payload del token
     const payload = { id: user._id, nome: user.name, role: user.role };
 
+    // Genera il token JWT
+    //expiresIn fa scadere il token MA NON LO ELIMINA
+    const token = jwt.sign(payload, key as string, { expiresIn: '15m' }); 
+
     await user.save();
 
-    return { payload };
+    return { token };
 }
 
 
@@ -28,10 +32,13 @@ export async function loginService(user: IUser) {
  * @returns boolean
  */
 
-export async function checkEmail(email:string):Promise<boolean>{
-
-    
-    return true
+export async function checkEmail(email: string): Promise<boolean> {
+    try {
+        emailSchema.parse(email);
+        return true;
+    } catch (e) {
+        return false;
+    }
 }
 
 // funzione fare l'hash della psw

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { loginService } from './homepageService';
+import { checkEmail, loginService } from './homepageService';
 import { hashPassword } from './homepageService';
 import bcrypt from "bcrypt"; //Hash psw
 import { z } from "zod";
@@ -21,17 +21,15 @@ export const loginUser = async (req: Request, res: Response) => {
 
 
         if (user) {
-            const tokens = await loginService(user);
+            
+            const userValido = await loginService(user);
 
-            const userValido = tokens.payload
-
-
-            // 🔹 Risposta al frontend
+            // Risposta al client
             setTimeout(() => {
                 res.status(200).json({
                     validation: true,
                     message: 'Login effettuato con successo',
-                    data: userValido
+                    data: userValido.token
                 });
             }, 2000)
 
@@ -44,3 +42,8 @@ export const loginUser = async (req: Request, res: Response) => {
 };
 
 
+export const updateEmail= async (req:Request,res:Response)=>{
+    const data= req.body
+    await checkEmail(data.email)
+    console.log('ciao dome')
+}

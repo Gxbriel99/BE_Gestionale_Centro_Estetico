@@ -2,8 +2,8 @@ import { ObjectId, Schema, model, Document } from "mongoose";
 import { z } from "zod";
 
 export enum Role {
-     ADMIN,
-     EMPLOYED 
+    ADMIN = "ADMIN",
+    EMPLOYED ="EMPLOYED" 
 }
 
 export interface IUser extends Document {
@@ -12,7 +12,7 @@ export interface IUser extends Document {
     surname: string;
     email: string;
     password: string;
-    role: {};
+    role:Role;
 }
 
 // Schema Mongoose
@@ -21,7 +21,7 @@ export const staffSchema = new Schema<IUser>({
     surname: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: { type: String , enum: Object.values(Role)}
+    role: {  enum: Object.values(Role)}
 }, { collection: "staff", versionKey: false });
 
 

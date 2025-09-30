@@ -1,6 +1,8 @@
 import express, { Router, Request, Response } from "express";
-import { loginUser } from "./homepageController";
-// import { authMiddleware } from "../../middleware/authMiddleware";
+import { loginUser, updateEmail } from "./homepageController";
+import { tokenMiddleware } from "../../middleware/tokenMiddleware";
+import { isAdminMiddleware, isEmployedMiddleware } from "../../middleware/roleMiddleware";
+ 
 
 
 
@@ -10,7 +12,9 @@ const routes: Router = Router();
 
 routes.post('/login',loginUser)
 
-// routes.post('/areaPersonale/', updateEmail)
+routes.use(tokenMiddleware,isAdminMiddleware)
+
+routes.post('/areaPersonale/changeEmail', updateEmail)
 
 
 
