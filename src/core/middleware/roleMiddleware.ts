@@ -18,11 +18,9 @@ export const  isAdminMiddleware = async (req: Request, res: Response, next: Next
 
     const role = await staffModel.findById(payload._id).select("role"); //Ottengo il ruolo dell'utente
     
-
     if (role && role.role == Role.ADMIN) next() 
-    else res.status(401).json('Utente non autorizzato') 
+    else res.status(403).json('Utente non autorizzato') 
 
-    
 
 };
 
@@ -34,7 +32,7 @@ export const isEmployedMiddleware = async (req: Request, res: Response, next: Ne
     const role = await staffModel.findById(payload._id).select("role"); //Ottengo il ruolo dell'utente
 
     if (role && role.role === Role.EMPLOYED) next() //se e' employed procede
-    else res.status(401).json('Utente non autorizzato') //altrimenti respingi
+    else res.status(403).json('Utente non autorizzato') //altrimenti respingi
 
 };
 

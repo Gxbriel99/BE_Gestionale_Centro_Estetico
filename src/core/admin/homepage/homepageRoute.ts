@@ -1,5 +1,5 @@
 import express, { Router, Request, Response } from "express";
-import { loginUser, updateEmail } from "./homepageController";
+import { loginUser, updateEmail, updatePsw } from "./homepageController";
 import { tokenMiddleware } from "../../middleware/tokenMiddleware";
 import { isAdminMiddleware, isEmployedMiddleware } from "../../middleware/roleMiddleware";
  
@@ -15,6 +15,8 @@ routes.post('/login',loginUser)
 routes.use(tokenMiddleware,isAdminMiddleware)
 
 routes.post('/areaPersonale/changeEmail', updateEmail)
+
+routes.post('/areaPersonale/changePsw', updatePsw)
 
 
 

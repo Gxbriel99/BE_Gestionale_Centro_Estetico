@@ -19,7 +19,6 @@ export async function startServer(app: Express) {
         server.listen(PORT, async () => {
             await connectDB();
             console.log(`OK! Server HTTP attivo sulla porta ${PORT}`);
-            console.log('OK! Server pronto!');
         });
 
     } catch (error) {

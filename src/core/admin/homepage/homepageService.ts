@@ -1,5 +1,5 @@
 
-import { emailSchema, IUser } from "../../schema/staffSchema";
+import { emailSchema, IUser, passwordSchema } from "../../schema/staffSchema";
 import { staffModel, staffZod } from "../../schema/staffSchema";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
@@ -37,7 +37,55 @@ export async function checkEmail(email: string): Promise<boolean> {
         emailSchema.parse(email);
         return true;
     } catch (e) {
+        console.error('Errore durante la validazione',e)
         return false;
+    }
+}
+
+/**
+ * Funzione per aggiornare l'email dell'utente passato
+ * @param id id dell'utente
+ * @param email emial dell'utente
+ */
+export async function changeEmail(id: string, email: string):Promise<void> {
+    try {
+        // aggiorna l'email dell'utente
+        await staffModel.findByIdAndUpdate(id, { $set: { email: email } });
+    } catch (error) {
+        console.error('Errore aggiornamento email:', error);
+        throw error;
+    }
+}
+
+/**
+ * Funzione per validare la psw
+ * @param psw nuova psw
+ * @returns boolean
+ */
+export async function checkPsw(psw: string): Promise<boolean> {
+    try {
+        passwordSchema.parse(psw);
+        return true;
+    } catch (e) {
+        console.error('Errore durante la validazione', e)
+        return false;
+    }
+}
+
+/**
+ * Funzione per aggiornare l'email dell'utente passato
+ * @param id id dell'utente
+ * @param password nuova password dell'utente
+ */
+export async function changePsw(id: string, password: string): Promise<void> {
+    try {
+        //cifra la nuova psw
+        const pswHashata= await hashPassword(password)
+        // aggiorna la psw dell'utente
+        await staffModel.findByIdAndUpdate(id, { $set: { password: pswHashata } });
+    } catch (error) {
+        console.error('Errore aggiornamento password:', error);
+        throw error;
     }
 }
 
