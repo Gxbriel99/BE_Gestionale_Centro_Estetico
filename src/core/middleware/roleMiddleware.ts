@@ -2,6 +2,8 @@ import { error } from "console";
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Role, staffModel } from "../schema/staffSchema";
+import { BadRequestException, UnauthorizedException } from "../errors/errorException";
+import { ErrorCode } from "../errors/errorEnum";
 
 
 /**
@@ -14,12 +16,12 @@ import { Role, staffModel } from "../schema/staffSchema";
 export const  isAdminMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const payload= req.body //Ottengo il payload
     
-    if (!payload) res.status(401).json('Payload non valido') //paylaod non valido
+    if (!payload) throw new BadRequestException('Payload fornito non valido',ErrorCode.INVALID_REQUEST) 
 
     const role = await staffModel.findById(payload._id).select("role"); //Ottengo il ruolo dell'utente
     
     if (role && role.role == Role.ADMIN) next() 
-    else res.status(403).json('Utente non autorizzato') 
+    else throw new UnauthorizedException('Non disponi dei privilegi necessari', ErrorCode.FORBIDDEN)
 
 
 };
@@ -27,12 +29,12 @@ export const  isAdminMiddleware = async (req: Request, res: Response, next: Next
 export const isEmployedMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const payload = req.body.playlaod //Ottengo il payload
 
-    if (!payload) res.status(401).json('Payload non valido') //paylaod non valido
+    if (!payload) throw new BadRequestException('Payload fornito non valido', ErrorCode.INVALID_REQUEST) 
 
     const role = await staffModel.findById(payload._id).select("role"); //Ottengo il ruolo dell'utente
 
     if (role && role.role === Role.EMPLOYED) next() //se e' employed procede
-    else res.status(403).json('Utente non autorizzato') //altrimenti respingi
+    else throw new UnauthorizedException('Non disponi dei privilegi necessari', ErrorCode.FORBIDDEN)
 
 };
 

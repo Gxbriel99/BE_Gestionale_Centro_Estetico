@@ -12,7 +12,7 @@ export interface IEmployed extends Document {
 export const employedSchema = new Schema<IEmployed>({
     nome: { type: String, required: true },
     cognome: { type: String, required: true },
-})
+},{ collection: "employed", versionKey: false })
 
 //Schema Zod
 export const employedZod = z.object({

@@ -1,0 +1,25 @@
+/**
+ * Enumerazione dei codici errore personalizzati.
+ */
+
+export enum ErrorCode {
+
+    NOT_FOUND = 1000,
+    ALREADY_EXISTS = 1001,
+    INVALID_REQUEST = 1002,
+    INTERNAL_SERVER_ERROR = 1004,
+    SERVICE_UNAVAILABLE = 1005,
+    CONSTRAINT_VIOLATION = 1006,
+    TOO_MANY_REQUESTS = 1007,
+    CONFLICT = 1008,
+    UNPROCESSABLE = 1009,
+    UNAUTHORIZED = 4000,
+    FORBIDDEN = 4010,
+
+    // Token
+    TOKEN_MISSING = 4001,
+    TOKEN_EXPIRED = 4002,
+    TOKEN_REVOKED = 4003,
+    TOKEN_INVALID = 4004,
+    TOKEN_MISMATCH = 4005,
+}
