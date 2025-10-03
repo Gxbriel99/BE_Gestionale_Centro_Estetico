@@ -1,28 +1,32 @@
 
-import { emailSchema, IUser, passwordSchema } from "../../schema/staffSchema";
+import { emailSchema, IStaff, passwordSchema } from "../../schema/staffSchema";
 import { staffModel, staffZod } from "../../schema/staffSchema";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
-import { z, ZodError } from "zod";
 
 
 
 
-export async function loginService(user: IUser) {
-
-    // 🔑 Chiave segreta 
+export async function loginService(user: IStaff) {
     const key = process.env.Secret_Key;
 
-    // Payload del token
-    const payload = { id: user._id, nome: user.name, role: user.role };
+    if (!key) {
+        throw new Error("SecretKey non definito");
+    }
 
-    // Genera il token JWT
-    //expiresIn fa scadere il token MA NON LO ELIMINA
-    const token = jwt.sign(payload, key as string, { expiresIn: '15m' }); 
+    // payload 
+    const payload = { id: user._id };
 
+    // Access token breve 
+    const token = jwt.sign(payload, key, { expiresIn: "15m" });
+
+    // Refresh token 
+    const cookieToken = jwt.sign(payload, key, { expiresIn: "7d" });
+
+    user.cookieJWT = cookieToken;
     await user.save();
 
-    return { token };
+    return { token, cookieToken };
 }
 
 

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { changeEmail, changePsw, checkEmail, checkPsw, loginService } from './homepageService';
+import { checkEmail, checkPsw, loginService } from './homepageService';
 import bcrypt from "bcrypt"; //Hash psw
 import { staffModel } from '../../schema/staffSchema';
 
@@ -7,17 +7,30 @@ import { staffModel } from '../../schema/staffSchema';
 export const loginUser = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
-        if (!email || !password) return res.status(400).send("Email e password richieste");
+
+        const emailValidation= await checkEmail(email)
+        const pswValidation = await checkPsw(password)
+
+        if (!emailValidation || !pswValidation) return res.status(401).json('credenziali non valide')
 
         const user = await staffModel.findOne({ email: email });
-        if (!user) return res.status(401).send("Email o password errata");
 
-        const passwordValida = await bcrypt.compare(password, user.password);
-        if (!passwordValida) return res.status(401).send("Credenziali non valide");
+        if (!user) return res.status(401).send("Utente non valido");
 
-        if (user) {
-            
+        const pswCheck = await bcrypt.compare(password, user.password);
+
+        if (pswCheck) {
+
+            //effettuo il login
             const userValido = await loginService(user);
+
+            //Assegno il cookie alla response
+            res.cookie('cookieJWT', userValido.cookieToken, {
+                httpOnly: true,
+                secure: true, //true se usi https
+                sameSite: 'strict',
+                maxAge: 7 * 24 * 60 * 60 * 1000
+            })
 
             // Risposta al client
             setTimeout(() => {
@@ -28,7 +41,7 @@ export const loginUser = async (req: Request, res: Response) => {
                 });
             }, 2000)
 
-        }
+        } else return res.status(401).json("Errore durante il tentativo d'accesso")
 
     } catch (err) {
         console.error(err);
@@ -36,23 +49,3 @@ export const loginUser = async (req: Request, res: Response) => {
     }
 };
 
-export const updateEmail= async (req:Request,res:Response)=>{
-    const data= req.body
-    const emailValidation: boolean = await checkEmail(data.email)
-    if(emailValidation){
-        console.log('validazione email:', emailValidation)
-        await changeEmail(data._id,data.email)
-        res.status(200).json({validation:true, message:'Il campo email è stato correttamente aggiornato'})
-    } else res.status(401).json({ validation: false, message: 'Il campo email non è valido' })
-}
-
-export const updatePsw= async (req:Request,res:Response)=>{
-    const data= req.body
-    const pswValidation: boolean = await checkPsw(data.password)
-
-    if(pswValidation){
-        console.log(console.log('validazione password:', pswValidation))
-        await changePsw(data._id, data.password)
-        res.status(200).json({ validation: true, message: 'Il campo password è stato correttamente aggiornato' })
-    } else res.status(401).json({ validation: false, message: 'Il campo password non è valido' })
-}

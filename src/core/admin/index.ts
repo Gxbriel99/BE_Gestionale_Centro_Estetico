@@ -1,11 +1,18 @@
 import { Router } from 'express';
 import homepageRoute from './homepage/homepageRoute';
+import personalAreaRoute from './personalArea/personalAreaRoute';
+import { tokenMiddleware } from '../middleware/tokenMiddleware';
+import { isAdminMiddleware } from '../middleware/roleMiddleware';
 
 
 
-const userRouter = Router();
+const adminRouter = Router();
 
-userRouter.use('/homepage', homepageRoute);
+adminRouter.use('/homepage', homepageRoute);
+
+adminRouter.use(tokenMiddleware, isAdminMiddleware)
+
+adminRouter.use('/personalArea',personalAreaRoute )
 
 
-export { userRouter };
+export { adminRouter };

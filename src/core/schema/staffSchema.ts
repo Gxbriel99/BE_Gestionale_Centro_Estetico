@@ -6,22 +6,24 @@ export enum Role {
     EMPLOYED ="EMPLOYED" 
 }
 
-export interface IUser extends Document {
+export interface IStaff extends Document {
     _id: ObjectId;
     name: string;
     surname: string;
     email: string;
     password: string;
     role:Role;
+    cookieJWT:string;
 }
 
 // Schema Mongoose
-export const staffSchema = new Schema<IUser>({
+export const staffSchema = new Schema<IStaff>({
     name: { type: String, required: true },
     surname: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: {  enum: Object.values(Role)}
+    role: {  enum: Object.values(Role)},
+    cookieJWT:{ type:String,unique:true}
 }, { collection: "staff", versionKey: false });
 
 
@@ -41,8 +43,9 @@ export const staffZod = z.object({
     email: emailSchema,
     password: passwordSchema,
     role: z.enum(Role),  
+    cookieJWT: z.string().nullable().default(null)
 });
 
 // ✅ Model Mongoose
-export const staffModel = model<IUser>("staff", staffSchema);
+export const staffModel = model<IStaff>("staff", staffSchema);
 
