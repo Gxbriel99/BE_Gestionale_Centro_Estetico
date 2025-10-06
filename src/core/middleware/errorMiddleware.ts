@@ -4,11 +4,13 @@ import { APIException } from "../errors/errorClass";
 
 /**
  * Middleware globale per la gestione centralizzata degli errori API.
- * Differenzia tra errori client (4xx) ed errori server (5xx),
+ * Differenzia tra errori client ed errori server 
  */
 export const errorMiddleware = (error: APIException, req: Request, res: Response, next: NextFunction) => {
 
     const isClientError = error.statusCode >= 400 && error.statusCode < 500;
+
+    console.log("DEBUG ERROR:", error);
 
     if (isClientError) {
 

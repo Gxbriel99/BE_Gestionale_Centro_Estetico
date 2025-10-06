@@ -9,7 +9,16 @@ export const passwordSchema = z
     .regex(/[0-9]/, "La password deve contenere almeno un numero")
     .regex(/[\W_]/, "La password deve contenere almeno un carattere speciale");
 
+
+export type TokenHeader = {
+    id: string;
+    iat: number;
+    exp: number;
+}
+
+
+
 export const loginZod = z.object({
     email: emailSchema,
-    password:passwordSchema
+    password: passwordSchema
 })

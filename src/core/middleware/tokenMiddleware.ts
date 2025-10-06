@@ -3,6 +3,7 @@ import { staffModel } from "../schema/staffSchema";
 import jwt from "jsonwebtoken"; // IMPORT NECESSARIO
 import { BadRequestException, NotFoundException, UnauthorizedException } from "../errors/errorException";
 import { ErrorCode } from "../errors/errorEnum";
+import { TokenHeader } from "../schema/loginSchema";
 
 export const tokenMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const accessToken = req.headers.authorization; // Ottengo il bearer token
@@ -11,15 +12,15 @@ export const tokenMiddleware = async (req: Request, res: Response, next: NextFun
 
     if (accessToken) {
         const key = process.env.Secret_Key; //Ottengo la Secret_Key
-        if (!key) throw new Error("Secret_Key non definita"); //ne verifico la validità
+        if (!key) throw new NotFoundException("Secret_Key non definita", ErrorCode.NOT_FOUND); //ne verifico la validità
 
         const token = accessToken.split(" ")[1]; // "Rimuovo "Bearer" dal token
-        const tokenValidation = jwt.verify(token, key); // Controllo validità del token
+        const tokenValidation = jwt.verify(token, key) as TokenHeader; // Controllo validità del token
+        
 
-        if (tokenValidation) throw new UnauthorizedException('Token scaduto',ErrorCode.TOKEN_EXPIRED)
+        if (!tokenValidation) throw new UnauthorizedException('Token scaduto',ErrorCode.TOKEN_EXPIRED)
 
-        const payload = req.body
-        const user = await staffModel.findById({ _id: payload._id })
+        const user = await staffModel.findById({ _id: tokenValidation.id })
         if (!user) throw new NotFoundException('Utente non trovato', ErrorCode.NOT_FOUND)
 
         // req.user = {

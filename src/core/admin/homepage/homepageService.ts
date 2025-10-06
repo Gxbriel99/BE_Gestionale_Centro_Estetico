@@ -39,32 +39,12 @@ export async function loginService(email: string, psw: string) {
         cookieJWT:cookieToken
     }
 
-    const updateUserLogin= await staffModel.findByIdAndUpdate(data.id, user,{new:true})
-
-    if (!updateUserLogin)throw new UnauthorizedException("Errore durante l'aggiornamento dell'email", ErrorCode.UNPROCESSABLE)
+    await staffModel.findByIdAndUpdate(data.id, user)
 
     return { token, cookieToken };
 }
 
 
-/**
- * Funzione per aggiornare l'email dell'utente passato
- * @param id id dell'utente
- * @param email emial dell'utente
- */
-export async function changeEmail(id: string, email: string) {
-    await staffModel.findByIdAndUpdate(id, { $set: { email: email } });
-}
-
-/**
- * Funzione per aggiornare l'email dell'utente passato
- * @param id id dell'utente
- * @param password nuova password dell'utente
- */
-export async function changePsw(id: string, password: string) {
-    const pswHashata = await hashPassword(password)
-    await staffModel.findByIdAndUpdate(id, { $set: { password: pswHashata } });
-}
 
 /**
  * Funzione che cifra la stringa passata

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { changeEmail, changePsw } from '../homepage/homepageService';
 import { emailSchema, passwordSchema } from '../../schema/loginSchema';
+import { changeEmail, changePsw } from './personalAreaService';
 
 
 
