@@ -1,9 +1,10 @@
-import { Document, model, Schema } from "mongoose";
+import { Document, model, ObjectId, Schema } from "mongoose";
 import z from "zod";
 
 
 //Interface
-export interface IEmployed extends Document {
+export interface IEmployed  {
+    id?:ObjectId,
     nome: string,
     cognome: string
 }
@@ -16,9 +17,10 @@ export const employedSchema = new Schema<IEmployed>({
 
 //Schema Zod
 export const employedZod = z.object({
-    nome: z.string().min(3),
-    cognome: z.string().min(3),
-})
+    id: z.string().min(1).optional(), 
+    nome: z.string().min(3).optional(),
+    cognome: z.string().min(3).optional(),
+});
 
 // ✅ Model Mongoose
 export const employedModel = model<IEmployed>("employed", employedSchema);
