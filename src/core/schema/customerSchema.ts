@@ -1,6 +1,7 @@
 import { Document, model, Schema } from "mongoose";
 import z, { number } from "zod";
-import { emailSchema } from "./staffSchema";
+import { emailSchema } from "./loginSchema";
+
 
 //ENUM Sesso
 export enum Sesso {

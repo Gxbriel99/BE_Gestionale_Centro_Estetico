@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isAdminMiddleware } from "../../middleware/roleMiddleware";
-import { addEmployed, allEmployeds, deleteEmployed, getEmployed, updateEmployed } from "./dashboardController";
+import { addCustomer, addEmployed, allCustomer, allEmployeds, deleteCustomer, deleteEmployed, updateCustomer, updateEmployed } from "./dashboardController";
 import { tokenMiddleware } from "../../middleware/tokenMiddleware";
 import { errorHandler } from "../../errors/erorrHandler";
 
@@ -9,12 +9,21 @@ import { errorHandler } from "../../errors/erorrHandler";
 
 const routes: Router = Router();
 
-routes.use(tokenMiddleware,isAdminMiddleware)
+routes.use(tokenMiddleware)
 
-routes.get('/eployed/allEmployed', errorHandler(allEmployeds))
-routes.get('/eployed/:id', errorHandler(getEmployed))
-routes.post('/eployed/Add', errorHandler(addEmployed))
+//-----------------------CRUD CUSTOMER--------------------------------------//
+routes.get('/allCustomers', errorHandler(allCustomer))
+routes.post('/addCustomer', errorHandler(addCustomer))
+routes.post('/updateCustomer/:id', errorHandler(updateCustomer))
+routes.delete('/deleteCustomer/:id', errorHandler(deleteCustomer))
+
+//-----------------------CRUD EMPLOYED--------------------------------------//
+routes.use(isAdminMiddleware)
+
+routes.get('/allEmployed', errorHandler(allEmployeds))
+routes.post('/addEmployed', errorHandler(addEmployed))
 routes.post('/updateEmployed/:id', errorHandler(updateEmployed))
 routes.post('/deleteEmployed/:id', errorHandler(deleteEmployed))
+
 
 export default routes;
