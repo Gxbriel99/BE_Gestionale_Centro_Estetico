@@ -17,7 +17,8 @@ export interface ICustomer extends Document{
     dataNascita:Date,
     telefono:number
     email:string,
-    sesso:Sesso
+    sesso:Sesso,
+    isDeleted?:boolean
 }
 
 // Schema Mongoose
@@ -27,7 +28,8 @@ export const customerSchema = new Schema<ICustomer>({
     dataNascita: { type: Date, required: true },
     telefono: { type: Number, required: true },
     email: { type: String, required: true, unique:true },
-    sesso: {  enum: Object.values(Sesso)}
+    sesso: {  enum: Object.values(Sesso)},
+    isDeleted: { type: Boolean, default: false }
 }, { collection: "customer", versionKey: false })
 
 

@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { employedZod, idZod, IEmployed } from '../../schema/employedSchema';
-import { editCustomer, editEmployed, getAllCustomers, getAllEmployeds, insertCustomer, insertEmployed, removeCustomer, removeEmployed } from './dashboardService';
+import { editCustomer, editEmployed, editService, getAllCustomers, getAllEmployeds, getAllService, insertCustomer, insertEmployed, insertService, removeCustomer, removeEmployed, removeService } from './dashboardService';
 import { customerZod } from '../../schema/customerSchema';
+import { Categoria, serviceZod } from '../../schema/serviceSchema';
 
 
 
@@ -49,7 +50,7 @@ export const deleteCustomer = async (req: Request, res: Response) => {
  * Funzione per ottenere tutti i clienti registrati.
  * @res json di risposta con la lista dei clienti.
  */
-export const allCustomer = async (res: Response) => {
+export const allCustomer = async (req: Request, res: Response) => {
     const customers = await getAllCustomers()
     res.status(200).json(customers);
 }
@@ -101,3 +102,28 @@ export const allEmployeds = async (req: Request, res: Response) => {
 }
 
 
+//-----------------------SERVICE--------------------------------------//
+
+export const addService = async (req: Request, res: Response) => {
+    const { nome, descrizione, prezzo, categoria } = serviceZod.parse(req.body)
+    await insertService(nome, descrizione, prezzo, categoria)
+    res.status(201).json('Servizio aggiunto con successo')
+}
+
+export const updateService = async (req: Request, res: Response) => {
+    const id = idZod.parse(req.params.id)
+    const { nome, descrizione, prezzo, categoria } = serviceZod.parse(req.body)
+    await editService(id, nome, descrizione, prezzo, categoria)
+    res.status(200).json('Servizio modificato con successo')
+}
+
+export const deleteService = async (req: Request, res: Response) => {
+    const id = idZod.parse(req.params.id)
+    await removeService(id)
+    res.status(200).json('Dipendende eliminato con successo')
+}
+
+export const allService = async (req: Request, res: Response) => {
+    const service = await getAllService()
+    res.status(200).json(service);
+}
