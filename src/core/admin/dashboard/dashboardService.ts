@@ -2,12 +2,13 @@ import { ObjectId } from "mongoose";
 import { BadRequestException, NotFoundException } from "../../errors/errorException";
 import { employedModel, IEmployed } from "../../schema/employedSchema";
 import { ErrorCode } from "../../errors/errorEnum";
-import { customerModel } from "../../schema/customerSchema";
-import { serviceModel } from "../../schema/serviceSchema";
+import { customerModel, ICustomer } from "../../schema/customerSchema";
+import { IService, serviceModel } from "../../schema/serviceSchema";
+import { scheduleModel, Status } from "../../schema/scheduleSchema";
 
 
 
-//-----------------------CUSTOMER--------------------------------------//
+//-----------------------------------CUSTOMER--------------------------------------//
 export async function insertCustomer(nome: string, cognome: string, dataNascita: Date, telefono: number, email: string, sesso: string) {
     await customerModel.create({ nome, cognome, dataNascita, telefono, email, sesso, isDeleted: false })
 }
@@ -28,14 +29,25 @@ export async function getAllCustomers() {
     return customers;
 }
 
+export async function getSingleCustomer(id: string) {
+    const employed= await customerModel.findById({ _id: id, isDeleted: false });
+    if (!employed) throw new NotFoundException('Cliente non trovato', ErrorCode.NOT_FOUND)
+    return employed;
+}
 
-//-----------------------EMPLOYED--------------------------------------//
+
+//------------------------------------------EMPLOYED--------------------------------------//
 
 export async function getAllEmployeds() {
     const employed = await employedModel.find({ isDeleted: false });
     return employed;
 }
 
+export async function getSingleEmployed(id: string) {
+    const employed= await employedModel.findById({ _id: id, isDeleted: false });
+    if (!employed) throw new NotFoundException('Dipendente non trovato', ErrorCode.NOT_FOUND)
+    return employed;
+}
 
 export async function insertEmployed(nome: string, cognome: string) {
     await employedModel.create({ nome, cognome, isDeleted: false })
@@ -52,13 +64,23 @@ export async function removeEmployed(id: string) {
     await employedModel.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
 }
 
-//-----------------------SERVICE--------------------------------------//
+//----------------------------------------SERVICE--------------------------------------//
 
 export async function getAllService() {
     const service = await serviceModel.find({ isDeleted: false });
     if (!service) throw new NotFoundException('Nessun servizio registrato', ErrorCode.NOT_FOUND)
     return service;
 }
+
+export async function getSingleService(id: string) {
+    const service = await serviceModel.findById({ _id: id, isDeleted: false });
+    if (!service) throw new NotFoundException('Servizio non trovato', ErrorCode.NOT_FOUND);
+    return service;
+
+    //CAPIRE PERCHE' TORNA OBJECTID MENTRE TUTTE LE ALTRE FUNZIONI TORNANO STRING
+    // (HO FATTO SOLO COPIA E INCOLLA DELLA FUNZIONI)
+}
+
 
 export async function insertService(nome: string, descrizione: string, prezzo: number, categoria: string) {
     await serviceModel.create({ nome, descrizione, prezzo, categoria, isDeleted: false })
@@ -73,4 +95,27 @@ export async function editService(id: string, nome: string, descrizione: string,
 
 export async function removeService(id: string) {
     await serviceModel.findByIdAndUpdate(id, { isDeleted: true }, { new: true });
+}
+
+//----------------------------------------SCHEDULE--------------------------------------//
+
+
+export async function insertPrenotation(
+    giorno: string,
+    oraInizio: string,
+    oraFine: string,
+    note: string,
+    stato: Status,
+    serviceId: string,
+    serviceNome: string,
+    servicePrezzo: number,
+    serviceCategoria: string,
+    customerId: string,
+    customerNome: string,
+    customerCognome: string,
+    employedId: string,
+    employedNome: string,
+    employedCognome: string
+) {
+    await scheduleModel.create({giorno,oraInizio,oraFine,note,stato,serviceId,serviceNome,servicePrezzo,serviceCategoria,customerId,customerNome,customerCognome,employedId,employedNome,employedCognome,isDeleted: false});
 }

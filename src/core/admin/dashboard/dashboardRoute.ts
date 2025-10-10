@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isAdminMiddleware } from "../../middleware/roleMiddleware";
-import { addCustomer, addEmployed, addService, allCustomer, allEmployeds, allService, deleteCustomer, deleteEmployed, deleteService, updateCustomer, updateEmployed, updateService } from "./dashboardController";
+import { addCustomer, addEmployed, addPrenotaion, addService, allCustomer, allEmployeds, allService, deleteCustomer, deleteEmployed, deleteService, updateCustomer, updateEmployed, updateService } from "./dashboardController";
 import { tokenMiddleware } from "../../middleware/tokenMiddleware";
 import { errorHandler } from "../../errors/erorrHandler";
 
@@ -10,6 +10,11 @@ import { errorHandler } from "../../errors/erorrHandler";
 const routes: Router = Router();
 
 routes.use(tokenMiddleware)
+
+//-----------------------CRUD SCHEDULE--------------------------------------//
+
+routes.post('/addPrenotation', errorHandler(addPrenotaion))
+
 
 //-----------------------CRUD CUSTOMER--------------------------------------//
 routes.get('/allCustomers', errorHandler(allCustomer))

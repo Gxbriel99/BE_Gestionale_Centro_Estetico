@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
-import { employedZod, idZod, IEmployed } from '../../schema/employedSchema';
-import { editCustomer, editEmployed, editService, getAllCustomers, getAllEmployeds, getAllService, insertCustomer, insertEmployed, insertService, removeCustomer, removeEmployed, removeService } from './dashboardService';
+import { employedModel, employedZod, idZod, IEmployed } from '../../schema/employedSchema';
+import { editCustomer, editEmployed, editService, getAllCustomers, getAllEmployeds, getAllService, getSingleCustomer, getSingleEmployed, getSingleService, insertCustomer, insertEmployed, insertPrenotation, insertService, removeCustomer, removeEmployed, removeService } from './dashboardService';
 import { customerZod } from '../../schema/customerSchema';
-import { Categoria, serviceZod } from '../../schema/serviceSchema';
+import { serviceZod } from '../../schema/serviceSchema';
+import { ISchedule, scheduleZod } from '../../schema/scheduleSchema';
+
 
 
 
@@ -18,8 +20,8 @@ export const addCustomer = async (req: Request, res: Response) => {
     const { nome, cognome, telefono, dataNascita, email, sesso } = customerZod.parse(data)
     await insertCustomer(nome, cognome, dataNascita, telefono, email, sesso)
     res.status(201).json('Cliente registrato con successo')
+    //NON AGGIUNGE IL SESSO,DA CONTROLLARE
 }
-
 
 /**
  * Funzione per modificare i dati di un cliente esistente.
@@ -126,4 +128,21 @@ export const deleteService = async (req: Request, res: Response) => {
 export const allService = async (req: Request, res: Response) => {
     const service = await getAllService()
     res.status(200).json(service);
+}
+
+
+//-----------------------SCHEDULE--------------------------------------//
+
+export const addPrenotaion = async (req: Request, res: Response) => {
+    console.log(req.body)
+    const {giorno,oraInizio,oraFine,note,status,service,customer,employed} = scheduleZod.parse(req.body);
+
+    const servizio= await getSingleService(service)
+    const cliente = await getSingleCustomer(customer)
+    const dipendente = await getSingleEmployed(employed)
+    
+    await insertPrenotation(giorno, oraInizio, oraFine, note, status, servizio._id, servizio.nome, servizio.prezzo, servizio.categoria, cliente._id, cliente.nome, cliente.cognome, dipendente._id,dipendente.nome,dipendente.cognome)
+    res.status(200).json('Prenotazione aggiunta con successo')
+    
+    //CONTROLLA PERCHE' GLI ID NON SONO TIPIZZATI COME STRINGA
 }

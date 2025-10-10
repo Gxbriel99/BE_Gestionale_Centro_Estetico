@@ -1,5 +1,5 @@
 import { Document, model, Schema } from "mongoose";
-import z, { number } from "zod";
+import z from "zod";
 import { emailSchema } from "./loginSchema";
 
 
