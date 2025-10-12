@@ -76,9 +76,6 @@ export async function getSingleService(id: string) {
     const service = await serviceModel.findById({ _id: id, isDeleted: false });
     if (!service) throw new NotFoundException('Servizio non trovato', ErrorCode.NOT_FOUND);
     return service;
-
-    //CAPIRE PERCHE' TORNA OBJECTID MENTRE TUTTE LE ALTRE FUNZIONI TORNANO STRING
-    // (HO FATTO SOLO COPIA E INCOLLA DELLA FUNZIONI)
 }
 
 
@@ -100,22 +97,20 @@ export async function removeService(id: string) {
 //----------------------------------------SCHEDULE--------------------------------------//
 
 
-export async function insertPrenotation(
-    giorno: string,
-    oraInizio: string,
-    oraFine: string,
-    note: string,
-    stato: Status,
-    serviceId: string,
-    serviceNome: string,
-    servicePrezzo: number,
-    serviceCategoria: string,
-    customerId: string,
-    customerNome: string,
-    customerCognome: string,
-    employedId: string,
-    employedNome: string,
-    employedCognome: string
-) {
-    await scheduleModel.create({giorno,oraInizio,oraFine,note,stato,serviceId,serviceNome,servicePrezzo,serviceCategoria,customerId,customerNome,customerCognome,employedId,employedNome,employedCognome,isDeleted: false});
+export async function insertPrenotation(giorno:string, oraInizio:string, oraFine:string, note:string, status:Status, service:object, customer:object, employed:object) {
+    await scheduleModel.create({giorno,oraInizio,oraFine,note,status,service,employed,customer,isDeleted: false});
+}
+
+export async function editPrenotation(id:string,giorno:string, oraInizio:string, oraFine:string, note:string, status:Status, service:object, customer:object, employed:object) {
+    await scheduleModel.findByIdAndUpdate(id,{giorno, oraInizio, oraFine, note, status, service, employed, customer, isDeleted: false},{ new: true } );
+}
+
+export async function removePrenotation(id: string,status:Status) {
+    await scheduleModel.findByIdAndUpdate(id, { status, isDeleted: true }, { new: true });
+}
+
+export async function getAllSchedule() {
+    const schedule = await scheduleModel.find({ isDeleted: false });
+    if (!schedule) throw new NotFoundException('Nessuna prenotazione registrata', ErrorCode.NOT_FOUND)
+    return schedule;
 }

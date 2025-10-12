@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { employedModel, employedZod, idZod, IEmployed } from '../../schema/employedSchema';
-import { editCustomer, editEmployed, editService, getAllCustomers, getAllEmployeds, getAllService, getSingleCustomer, getSingleEmployed, getSingleService, insertCustomer, insertEmployed, insertPrenotation, insertService, removeCustomer, removeEmployed, removeService } from './dashboardService';
+import { employedZod, idZod } from '../../schema/employedSchema';
+import { editCustomer, editEmployed, editPrenotation, editService, getAllCustomers, getAllEmployeds, getAllSchedule, getAllService, getSingleCustomer, getSingleEmployed, getSingleService, insertCustomer, insertEmployed, insertPrenotation, insertService, removeCustomer, removeEmployed, removePrenotation, removeService } from './dashboardService';
 import { customerZod } from '../../schema/customerSchema';
 import { serviceZod } from '../../schema/serviceSchema';
-import { ISchedule, scheduleZod } from '../../schema/scheduleSchema';
+import { scheduleZod, Status } from '../../schema/scheduleSchema';
 
 
 
@@ -134,15 +134,32 @@ export const allService = async (req: Request, res: Response) => {
 //-----------------------SCHEDULE--------------------------------------//
 
 export const addPrenotaion = async (req: Request, res: Response) => {
-    console.log(req.body)
-    const {giorno,oraInizio,oraFine,note,status,service,customer,employed} = scheduleZod.parse(req.body);
-
-    const servizio= await getSingleService(service)
-    const cliente = await getSingleCustomer(customer)
-    const dipendente = await getSingleEmployed(employed)
     
-    await insertPrenotation(giorno, oraInizio, oraFine, note, status, servizio._id, servizio.nome, servizio.prezzo, servizio.categoria, cliente._id, cliente.nome, cliente.cognome, dipendente._id,dipendente.nome,dipendente.cognome)
+    const {giorno,oraInizio,oraFine,note,status,service,customer,employed} = scheduleZod.parse(req.body);
+    
+    await insertPrenotation(giorno, oraInizio, oraFine, note, status, service, customer, employed)
     res.status(200).json('Prenotazione aggiunta con successo')
     
-    //CONTROLLA PERCHE' GLI ID NON SONO TIPIZZATI COME STRINGA
+}
+
+export const updatePrenotaion = async (req: Request, res: Response) => {
+
+    const id = idZod.parse(req.params.id)
+    const {giorno,oraInizio,oraFine,note,status,service,customer,employed} = scheduleZod.parse(req.body);
+    
+    await editPrenotation(id,giorno, oraInizio, oraFine, note, status, service, customer, employed)
+    res.status(200).json('Prenotazione aggiornata con successo')
+    
+}
+
+export const deletePrenotaion = async (req: Request, res: Response) => { 
+    const id = idZod.parse(req.params.id)
+    
+    await removePrenotation(id, Status.CANCELLATO)
+    res.status(200).json('Prenotazione cancellata con successo')  
+}
+
+export const allSchedule = async (req: Request, res: Response) => {
+    const schedule = await getAllSchedule()
+    res.status(200).json(schedule);
 }
