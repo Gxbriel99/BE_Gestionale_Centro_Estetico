@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { staffModel } from "../schema/staffSchema";
 import jwt from "jsonwebtoken"; // IMPORT NECESSARIO
-import { BadRequestException, NotFoundException, UnauthorizedException } from "../errors/errorException";
+import { NotFoundException, UnauthorizedException } from "../errors/errorException";
 import { ErrorCode } from "../errors/errorEnum";
 import { TokenHeader } from "../schema/loginSchema";
 
@@ -23,12 +23,7 @@ export const tokenMiddleware = async (req: Request, res: Response, next: NextFun
         const user = await staffModel.findById({ _id: tokenValidation.id })
         if (!user) throw new NotFoundException('Utente non trovato', ErrorCode.NOT_FOUND)
 
-        // req.user = {
-        //        id: user._id.toString(),
-        //        name: user.name,
-        //        email: user.email,
-        //        role: user.role
-        //     };
         next()
+
     }
 };

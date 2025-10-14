@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
-import { loginService } from './homepageService';
-import bcrypt from "bcrypt"; //Hash psw
-import { staffModel } from '../../schema/staffSchema';
+import { extractRefreshToken, loginService, logoutService } from './homepageService';
 import { loginZod } from '../../schema/loginSchema';
+
 
 
 export const loginUser = async (req: Request, res: Response) => {
@@ -26,6 +25,14 @@ export const loginUser = async (req: Request, res: Response) => {
 }
 
 
-export const logOut = async (req: Request, res: Response) => {
-    console.log('ciola')
+export const logoutUser = async (req: Request, res: Response) => {
+    
+    const cookie = await extractRefreshToken(req);
+    await logoutService(cookie);
+    res.status(200).json({
+        validation: true,
+        message: 'Logout effettuato con successo'
+    });
 }
+
+

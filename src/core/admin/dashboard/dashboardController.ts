@@ -106,11 +106,22 @@ export const allEmployeds = async (req: Request, res: Response) => {
 
 //-----------------------SERVICE--------------------------------------//
 
+/**
+ * Questa funzione aggiunge un nuovo servizio al sistema.
+ * @param req payload della richiesta contenente i dati del servizio.
+ * @param res json di risposta con messaggio di successo.
+ */
+
 export const addService = async (req: Request, res: Response) => {
     const { nome, descrizione, prezzo, categoria } = serviceZod.parse(req.body)
     await insertService(nome, descrizione, prezzo, categoria)
     res.status(201).json('Servizio aggiunto con successo')
 }
+/**
+ * Questa funzione modifica i dati di un servizio esistente.
+ * @param req payload della richiesta contenente l'id del servizio da modificare e i nuovi dati.
+ * @param res Json di risposta con messaggio di successo.
+ */
 
 export const updateService = async (req: Request, res: Response) => {
     const id = idZod.parse(req.params.id)
@@ -119,11 +130,22 @@ export const updateService = async (req: Request, res: Response) => {
     res.status(200).json('Servizio modificato con successo')
 }
 
+/**
+ * Questa funzione elimina un servizio esistente.
+ * @param req payload della richiesta contenente l'id del servizio da eliminare.
+ * @param res json di risposta con messaggio di successo.
+ */
+
 export const deleteService = async (req: Request, res: Response) => {
     const id = idZod.parse(req.params.id)
     await removeService(id)
     res.status(200).json('Dipendende eliminato con successo')
 }
+
+/**
+ * Questa funzione ottiene tutti i servizi registrati.
+ * @res json di risposta con la lista dei servizi.
+ */
 
 export const allService = async (req: Request, res: Response) => {
     const service = await getAllService()
