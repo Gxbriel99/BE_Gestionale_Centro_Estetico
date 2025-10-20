@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import logger from "../core/logs/logs";
+
+
 
 dotenv.config();
 
@@ -9,10 +12,11 @@ export const connectDB = async () => {
             process.env.MONGO_URI!,
             { dbName: process.env.DB_NAME }
         );
-
-        console.log("MongoDB Atlas connesso!");
+        // Log informativo
+        logger.info("MongoDB Atlas connesso!");
     } catch (err) {
-        console.error("Errore di connessione a MongoDB Atlas:", err);
+        // Log di errore 
+        logger.error({ err }, "Errore di connessione a MongoDB Atlas");
         process.exit(1); // chiude l'app se non si connette
     }
 };

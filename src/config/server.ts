@@ -1,6 +1,7 @@
 import { Express } from 'express';
 import http from 'http';
 import { connectDB } from '../config/db';
+import logger from '../core/logs/logs';
 
 
 let server: http.Server;
@@ -8,7 +9,7 @@ let isShuttingDown = false;
 
 export async function startServer(app: Express) {
     try {
-        console.log('Avvio server in corso...');
+        logger.info('Avvio server in corso...');
 
         const PORT = process.env.PORT || 3000;
         server = http.createServer(app);
@@ -18,15 +19,16 @@ export async function startServer(app: Express) {
 
         server.listen(PORT, async () => {
             await connectDB();
-            console.log(`OK! Server HTTP attivo sulla porta ${PORT}`);
+            logger.info(`OK! Server HTTP attivo sulla porta ${PORT}`);
         });
 
-    } catch (error) {
-        console.error('KO! Errore durante il lancio del server:', error);
-        console.log('Server non avviato');
+    } catch (error: unknown) {
+        // Log completo con stack trace
+        logger.error({ error }, 'KO! Errore durante il lancio del server');
+        logger.warn('Server non avviato');
         process.exit(1);
-
     }
+
 }
 
 async function gracefulShutdown() {

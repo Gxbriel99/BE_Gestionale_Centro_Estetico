@@ -1,6 +1,7 @@
 
 import { Request, Response, NextFunction } from "express";
 import { APIException } from "../errors/errorClass";
+import logger from "../logs/logs";
 
 /**
  * Middleware globale per la gestione centralizzata degli errori API.
@@ -9,8 +10,6 @@ import { APIException } from "../errors/errorClass";
 export const errorMiddleware = (error: APIException, req: Request, res: Response, next: NextFunction) => {
 
     const isClientError = error.statusCode >= 400 && error.statusCode < 500;
-
-    console.log("DEBUG ERROR:", error);
 
     if (isClientError) {
 
@@ -27,6 +26,9 @@ export const errorMiddleware = (error: APIException, req: Request, res: Response
         res.status(error.statusCode).json(responseBody);
 
     } else {
+        // Log completo dell'errore
+        logger.error({ error, url: req.originalUrl, method: req.method }, 'API Error');
+        
         res.status(error.statusCode).json({
             success: false,
             message: error.message,

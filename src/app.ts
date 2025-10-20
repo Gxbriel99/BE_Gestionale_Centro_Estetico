@@ -5,6 +5,7 @@ import { startServer } from "./config/server";
 import { errorMiddleware } from "./core/middleware/errorMiddleware";
 
 const app = express();
+
 export const apiRouter = Router();
 
 app.use(express.json());
