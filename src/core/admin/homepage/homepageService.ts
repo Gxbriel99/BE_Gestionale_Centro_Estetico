@@ -6,6 +6,7 @@ import { randomUUID } from 'crypto';
 import { NotFoundException, UnauthorizedException, UnprocessableEntity } from "../../errors/errorException";
 import { ErrorCode } from "../../errors/errorEnum";
 import { authSessionModel, authSessionZod } from "../../schema/authSesion";
+import logger from "../../logs/logs";
 
 
 /**
@@ -59,6 +60,8 @@ export async function loginService(email: string, psw: string) {
     // Aggiorna lo staff
     await staffModel.findByIdAndUpdate(data._id, user);
 
+    logger.info(`Login effettuato da: ${data._id}`);
+    
     return { token, cookieToken };
 }
 
@@ -80,9 +83,10 @@ export async function logoutService(cookieToken: string) {
     if (!valid) throw new UnauthorizedException("Token non valido o già invalidato", ErrorCode.UNAUTHORIZED);
     
 
-    // 🧹 Elimina la sessione per invalidare il token
+    // Elimina la sessione per invalidare il token
     await authSessionModel.deleteOne({ entityID: payload.id });
     
+    logger.info(`Logout  effettuato da: ${payload.id}`);
     return 
 }
 
@@ -103,7 +107,6 @@ export function extractRefreshToken(req: Request) {
     if (req.cookies.cookieJWT) return req.cookies.cookieJWT;
     throw new UnauthorizedException("cookieJWT token mancante", ErrorCode.TOKEN_MISSING);
 }
-
 
 export async function compareHash(value: string, hashed: string): Promise<boolean> {
     return bcrypt.compare(value, hashed);

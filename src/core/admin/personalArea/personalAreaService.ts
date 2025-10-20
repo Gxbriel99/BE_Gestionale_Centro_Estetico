@@ -1,3 +1,4 @@
+import logger from "../../logs/logs";
 import { staffModel } from "../../schema/staffSchema";
 import { hashPassword } from "../homepage/homepageService";
 
@@ -7,6 +8,7 @@ import { hashPassword } from "../homepage/homepageService";
  * @param email emial dell'utente
  */
 export async function changeEmail(id: string, email: string) {
+    logger.info(`Email di: ${id} aggiornata`);
     await staffModel.findByIdAndUpdate(id, { $set: { email: email } });
 }
 
@@ -17,5 +19,6 @@ export async function changeEmail(id: string, email: string) {
  */
 export async function changePsw(id: string, password: string) {
     const pswHashata = await hashPassword(password)
+    logger.info(`psw di: ${id} aggiornata`);
     await staffModel.findByIdAndUpdate(id, { $set: { password: pswHashata } });
 }

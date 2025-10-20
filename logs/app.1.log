@@ -1,14 +1,51 @@
-{"level":30,"time":"2025-10-20T15:27:02.030Z","pid":16828,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
-{"level":30,"time":"2025-10-20T15:28:27.920Z","pid":7104,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
-{"level":30,"time":"2025-10-20T15:41:45.652Z","pid":15268,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
-{"level":30,"time":"2025-10-20T15:41:46.387Z","pid":15268,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
-{"level":30,"time":"2025-10-20T15:41:46.387Z","pid":15268,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
-{"level":30,"time":"2025-10-20T15:42:49.275Z","pid":16776,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
-{"level":30,"time":"2025-10-20T15:42:50.009Z","pid":16776,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
-{"level":30,"time":"2025-10-20T15:42:50.009Z","pid":16776,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
-{"level":30,"time":"2025-10-20T15:43:50.282Z","pid":17372,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
-{"level":30,"time":"2025-10-20T15:43:51.017Z","pid":17372,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
-{"level":30,"time":"2025-10-20T15:43:51.018Z","pid":17372,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
-{"level":30,"time":"2025-10-20T15:55:28.209Z","pid":18116,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
-{"level":30,"time":"2025-10-20T15:55:29.002Z","pid":18116,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
-{"level":30,"time":"2025-10-20T15:55:29.002Z","pid":18116,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
+{"level":30,"time":"2025-10-20T19:12:09.776Z","pid":7272,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
+{"level":30,"time":"2025-10-20T19:12:10.807Z","pid":7272,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
+{"level":30,"time":"2025-10-20T19:12:10.807Z","pid":7272,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
+{"level":50,"time":"2025-10-20T19:13:29.178Z","pid":7272,"hostname":"GabrielPeriniPc","error":{"expose":true,"statusCode":400,"status":400,"body":"{\r\n  \"nome\": \"marco\",\r\n  \"cognome\": \"rossi\",\r\n \r\n}\r\n","type":"entity.parse.failed"},"url":"/api/admin/dashboard/addEmployed","method":"POST","msg":"Unexpected token } in JSON at position 49"}
+{"level":50,"time":"2025-10-20T19:13:44.998Z","pid":7272,"hostname":"GabrielPeriniPc","error":{"name":"TokenExpiredError","message":"jwt expired","expiredAt":"2025-10-09T15:53:47.000Z"},"url":"/api/admin/dashboard/addEmployed","method":"POST","msg":"jwt expired"}
+{"level":30,"time":"2025-10-20T19:26:06.173Z","pid":10544,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
+{"level":30,"time":"2025-10-20T19:26:06.877Z","pid":10544,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
+{"level":30,"time":"2025-10-20T19:26:06.878Z","pid":10544,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
+{"level":30,"time":"2025-10-20T19:26:34.415Z","pid":10544,"hostname":"GabrielPeriniPc","msg":"Login effettuato da: 68daeec0511a1dea4646165c"}
+{"level":30,"time":"2025-10-20T19:31:28.538Z","pid":12944,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
+{"level":30,"time":"2025-10-20T19:31:29.339Z","pid":12944,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
+{"level":30,"time":"2025-10-20T19:31:29.339Z","pid":12944,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
+{"level":30,"time":"2025-10-20T19:31:32.712Z","pid":12944,"hostname":"GabrielPeriniPc","msg":"Login effettuato da: 68daeec0511a1dea4646165c"}
+{"level":30,"time":"2025-10-20T19:31:38.866Z","pid":12944,"hostname":"GabrielPeriniPc","msg":"Logout  effettuato da: 68daeec0511a1dea4646165c"}
+{"level":30,"time":"2025-10-20T20:00:33.898Z","pid":10356,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
+{"level":30,"time":"2025-10-20T20:00:34.611Z","pid":10356,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
+{"level":30,"time":"2025-10-20T20:00:34.611Z","pid":10356,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
+{"level":30,"time":"2025-10-20T20:00:53.106Z","pid":10356,"hostname":"GabrielPeriniPc","msg":"Stringa hashata: $2b$10$tIDZomWtcm73QmN0aFssFuTiVZhrBdLCTA9kvyzvlxKwwYWY8l6LO"}
+{"level":30,"time":"2025-10-20T20:00:53.210Z","pid":10356,"hostname":"GabrielPeriniPc","msg":"Login effettuato da: 68daeec0511a1dea4646165c"}
+{"level":30,"time":"2025-10-20T20:01:10.110Z","pid":10356,"hostname":"GabrielPeriniPc","msg":"Cookie ricevuto: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZGFlZWMwNTExYTFkZWE0NjQ2MTY1YyIsImp0aSI6IjM1ODgyZmY0LTQxMzctNDU3Ny1hMGEwLTAzNDc4NjY2N2MyYyIsImlhdCI6MTc2MDk5MDQ1MiwiZXhwIjoxNzYxNTk1MjUyfQ.YSPSwR8Bn7ZzyFx-pm15Mnll4DJV1lMzOQ7-MYc1G-4"}
+{"level":30,"time":"2025-10-20T20:01:10.394Z","pid":10356,"hostname":"GabrielPeriniPc","msg":"Logout  effettuato da: 68daeec0511a1dea4646165c"}
+{"level":30,"time":"2025-10-20T20:29:25.424Z","pid":12328,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
+{"level":30,"time":"2025-10-20T20:29:27.494Z","pid":12328,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
+{"level":30,"time":"2025-10-20T20:29:27.495Z","pid":12328,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
+{"level":30,"time":"2025-10-20T20:29:37.489Z","pid":12328,"hostname":"GabrielPeriniPc","msg":"Login effettuato da: 68daeec0511a1dea4646165c"}
+{"level":30,"time":"2025-10-20T20:30:24.766Z","pid":12328,"hostname":"GabrielPeriniPc","userId":"68daeec0511a1dea4646165c","role":"ADMIN","url":"/api/admin/dashboard/allEmployed","method":"GET","msg":"Accesso autorizzato"}
+{"level":30,"time":"2025-10-20T20:30:24.852Z","pid":12328,"hostname":"GabrielPeriniPc","userId":"68daeec0511a1dea4646165c","role":"ADMIN","url":"/api/admin/dashboard/allEmployed","method":"GET","msg":"Accesso autorizzato"}
+{"level":30,"time":"2025-10-20T20:30:24.899Z","pid":12328,"hostname":"GabrielPeriniPc","msg":"Lista employed ottenuta correttamente"}
+{"level":30,"time":"2025-10-20T20:38:00.991Z","pid":10132,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
+{"level":30,"time":"2025-10-20T20:38:02.866Z","pid":10132,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
+{"level":30,"time":"2025-10-20T20:38:02.866Z","pid":10132,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
+{"level":30,"time":"2025-10-20T20:38:07.117Z","pid":10132,"hostname":"GabrielPeriniPc","msg":"Login effettuato da: 68daeec0511a1dea4646165c"}
+{"level":30,"time":"2025-10-20T20:38:28.697Z","pid":10132,"hostname":"GabrielPeriniPc","msg":"Token dell'utente 68daeec0511a1dea4646165c convalidato correttamente"}
+{"level":30,"time":"2025-10-20T20:38:28.744Z","pid":10132,"hostname":"GabrielPeriniPc","msg":"Ruolo dell'utente 68daeec0511a1dea4646165c (ADMIN) autorizzato | URL: /api/admin/dashboard/allEmployed | Metodo: GET"}
+{"level":30,"time":"2025-10-20T20:38:28.790Z","pid":10132,"hostname":"GabrielPeriniPc","msg":"Token dell'utente 68daeec0511a1dea4646165c convalidato correttamente"}
+{"level":30,"time":"2025-10-20T20:38:28.833Z","pid":10132,"hostname":"GabrielPeriniPc","msg":"Ruolo dell'utente 68daeec0511a1dea4646165c (ADMIN) autorizzato | URL: /api/admin/dashboard/allEmployed | Metodo: GET"}
+{"level":30,"time":"2025-10-20T20:38:28.885Z","pid":10132,"hostname":"GabrielPeriniPc","msg":"Lista employed ottenuta correttamente"}
+{"level":30,"time":"2025-10-20T20:41:18.941Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Avvio server in corso..."}
+{"level":30,"time":"2025-10-20T20:41:19.620Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"MongoDB Atlas connesso!"}
+{"level":30,"time":"2025-10-20T20:41:19.620Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"OK! Server HTTP attivo sulla porta 3000"}
+{"level":30,"time":"2025-10-20T20:41:22.081Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Login effettuato da: 68daeec0511a1dea4646165c"}
+{"level":30,"time":"2025-10-20T20:41:33.379Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Token dell'utente 68daeec0511a1dea4646165c convalidato correttamente | URL: /api/admin/dashboard/allEmployed | Metodo: GET"}
+{"level":30,"time":"2025-10-20T20:41:33.421Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Ruolo dell'utente 68daeec0511a1dea4646165c (ADMIN) autorizzato | URL: /api/admin/dashboard/allEmployed | Metodo: GET"}
+{"level":30,"time":"2025-10-20T20:41:33.459Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Token dell'utente 68daeec0511a1dea4646165c convalidato correttamente | URL: /api/admin/dashboard/allEmployed | Metodo: GET"}
+{"level":30,"time":"2025-10-20T20:41:33.498Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Ruolo dell'utente 68daeec0511a1dea4646165c (ADMIN) autorizzato | URL: /api/admin/dashboard/allEmployed | Metodo: GET"}
+{"level":30,"time":"2025-10-20T20:41:33.537Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Lista employed ottenuta correttamente"}
+{"level":30,"time":"2025-10-20T20:43:28.241Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Token dell'utente 68daeec0511a1dea4646165c convalidato correttamente | URL: /api/admin/dashboard/addEmployed | Metodo: POST"}
+{"level":30,"time":"2025-10-20T20:43:28.288Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Ruolo dell'utente 68daeec0511a1dea4646165c (ADMIN) autorizzato | URL: /api/admin/dashboard/addEmployed | Metodo: POST"}
+{"level":30,"time":"2025-10-20T20:43:28.329Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Token dell'utente 68daeec0511a1dea4646165c convalidato correttamente | URL: /api/admin/dashboard/addEmployed | Metodo: POST"}
+{"level":30,"time":"2025-10-20T20:43:28.370Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Ruolo dell'utente 68daeec0511a1dea4646165c (ADMIN) autorizzato | URL: /api/admin/dashboard/addEmployed | Metodo: POST"}
+{"level":30,"time":"2025-10-20T20:43:28.372Z","pid":8556,"hostname":"GabrielPeriniPc","msg":"Employed: marco rossi registrato con successo"}

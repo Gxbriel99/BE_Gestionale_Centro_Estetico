@@ -155,6 +155,12 @@ export const allService = async (req: Request, res: Response) => {
 
 //-----------------------SCHEDULE--------------------------------------//
 
+/**
+ * Funzione per aggiungere una prenotazione
+ * @param req la prenotazione
+ * @param res json di risposta dello status della prenotazione
+ */
+
 export const addPrenotaion = async (req: Request, res: Response) => {
     
     const {giorno,oraInizio,oraFine,note,status,service,customer,employed} = scheduleZod.parse(req.body);
@@ -163,6 +169,12 @@ export const addPrenotaion = async (req: Request, res: Response) => {
     res.status(200).json('Prenotazione aggiunta con successo')
     
 }
+
+/**
+ * Funzione per aggiornare una prenotazione
+ * @param req la prenotazione da aggiornare
+ * @param res json di risposta dello status della prenotazione aggiornata
+ */
 
 export const updatePrenotaion = async (req: Request, res: Response) => {
 
@@ -174,12 +186,23 @@ export const updatePrenotaion = async (req: Request, res: Response) => {
     
 }
 
+/**
+ * Funzione per rimuovere una prenotazione
+ * @param req l'id delle prenotazione da rimuovere
+ * @param res json di risposta dello status della prenotazione
+ */
+
 export const deletePrenotaion = async (req: Request, res: Response) => { 
     const id = idZod.parse(req.params.id)
     
     await removePrenotation(id, Status.CANCELLATO)
     res.status(200).json('Prenotazione cancellata con successo')  
 }
+
+/**
+ * Funzione per ottenere la lista delle prenotazione
+ * @param res json di risposta con la lista delle prenotazioni
+ */
 
 export const allSchedule = async (req: Request, res: Response) => {
     const schedule = await getAllSchedule()

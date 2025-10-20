@@ -11,6 +11,8 @@ export const errorMiddleware = (error: APIException, req: Request, res: Response
 
     const isClientError = error.statusCode >= 400 && error.statusCode < 500;
 
+    logger.error({ error, url: req.originalUrl, method: req.method }, error.message);
+
     if (isClientError) {
 
         const responseBody: any = {
@@ -26,9 +28,6 @@ export const errorMiddleware = (error: APIException, req: Request, res: Response
         res.status(error.statusCode).json(responseBody);
 
     } else {
-        // Log completo dell'errore
-        logger.error({ error, url: req.originalUrl, method: req.method }, 'API Error');
-        
         res.status(error.statusCode).json({
             success: false,
             message: error.message,

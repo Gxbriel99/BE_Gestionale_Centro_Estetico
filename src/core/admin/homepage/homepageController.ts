@@ -3,7 +3,6 @@ import { extractRefreshToken, loginService, logoutService } from './homepageServ
 import { loginZod } from '../../schema/loginSchema';
 
 
-
 export const loginUser = async (req: Request, res: Response) => {
     const { email, password } = loginZod.parse(req.body);
     const user = await loginService(email, password)
@@ -24,9 +23,8 @@ export const loginUser = async (req: Request, res: Response) => {
     });
 }
 
-
 export const logoutUser = async (req: Request, res: Response) => {
-    
+
     const cookie = await extractRefreshToken(req);
     await logoutService(cookie);
     res.status(200).json({
