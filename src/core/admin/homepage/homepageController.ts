@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
-import { extractRefreshToken, loginService, logoutService } from './homepageService';
-import { loginZod } from '../../schema/loginSchema';
+import { changePsw, extractRefreshToken, loginService, logoutService, requireOTP } from './homepageService';
+import { emailSchema, loginZod, otpSchema, passwordSchema } from '../../schema/loginSchema';
 
+
+//----------------------------- LOGIN E LOGOUT ---------------------------------//
 
 export const loginUser = async (req: Request, res: Response) => {
     const { email, password } = loginZod.parse(req.body);
@@ -33,4 +35,19 @@ export const logoutUser = async (req: Request, res: Response) => {
     });
 }
 
+//----------------------------- OTP E CHANGE PSW ---------------------------------//
+
+export const requestOtp = async (req: Request, res: Response) => {
+    const email = emailSchema.parse(req.body.email)
+    await requireOTP(email)
+    res.status(200).json({ validation: true, message: 'Il codice OTP è stato generato e inviato correttamente' })
+}
+
+export const updatePSW = async (req: Request, res: Response) => {
+    const otp = otpSchema.parse(req.body.otp)
+    const email = emailSchema.parse(req.body.email)
+    const password = passwordSchema.parse(req.body.password)
+    await changePsw(otp,email,password)
+    res.status(200).json({ validation: true, message: 'La password è stata aggiornata correttamente' })
+}
 

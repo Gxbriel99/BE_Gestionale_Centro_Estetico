@@ -1,6 +1,6 @@
 import pino from 'pino';
 
-// Logger combinato: rotazione file + console colorata in sviluppo
+// Logger combinato
 const logger = pino(
     {
         level: 'info',
@@ -9,7 +9,7 @@ const logger = pino(
     pino.transport({
         targets: [
             {
-                target: 'pino-roll',           // scrittura su file con rotazione
+                target: 'pino-roll',           // scrittura su file 
                 options: {
                     file: './logs/app.log',
                     frequency: 'daily',

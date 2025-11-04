@@ -1,5 +1,7 @@
 import z from "zod";
 
+
+export const otpSchema = z.string().length(6, "L'OTP deve essere di 6 caratteri").regex(/^[0-9]{6}$/, "L'OTP deve contenere solo numeri");
 export const emailSchema = z.string().regex(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Email non valida").toLowerCase();
 export const passwordSchema = z
     .string()
@@ -15,7 +17,6 @@ export type TokenHeader = {
     iat: number;
     exp: number;
 }
-
 
 
 export const loginZod = z.object({

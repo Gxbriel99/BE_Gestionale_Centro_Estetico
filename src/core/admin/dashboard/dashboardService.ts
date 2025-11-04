@@ -9,7 +9,7 @@ import logger from "../../logs/logs";
 
 
 
-//-----------------------------------CUSTOMER--------------------------------------//
+//---------------------------------CUSTOMER--------------------------------------//
 export async function insertCustomer(nome: string, cognome: string, dataNascita: Date, telefono: number, email: string, sesso: string) {
     logger.info(`Cliente: ${nome} ${cognome} registrato con successo`);
     await customerModel.create({ nome, cognome, dataNascita, telefono, email, sesso, isDeleted: false })
@@ -42,7 +42,7 @@ export async function getSingleCustomer(id: string) {
 }
 
 
-//------------------------------------------EMPLOYED--------------------------------------//
+//-----------------------------------EMPLOYED--------------------------------------//
 
 
 export async function getAllEmployeds() {

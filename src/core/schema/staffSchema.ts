@@ -15,6 +15,9 @@ export interface IStaff extends Document {
     password: string;
     role:Role;
     cookieJWT:string;
+    otp?: String|null,
+    otpExpires?: Date|null
+    
 }
 
 // Schema Mongoose
@@ -24,7 +27,9 @@ export const staffSchema = new Schema<IStaff>({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: {  enum: Object.values(Role)},
-    cookieJWT:{ type:String,unique:true}
+    cookieJWT:{ type:String,unique:true},
+    otp: { type: String, default: null},
+    otpExpires: { type: Date, default: null },
 }, { collection: "staff", versionKey: false });
 
 
